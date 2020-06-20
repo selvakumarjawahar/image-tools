@@ -8,10 +8,13 @@ project(image-tools
 )
 
 find_package( OpenCV REQUIRED )
+find_package( Drogon CONFIG REQUIRED )
 
 add_executable(image-tools
 	    src/main.cpp
-		src/Panaroma.cpp src/Panaroma.h src/ErrHandl.h)
+		src/opencv/Panaroma.cpp
+		src/opencv/Panaroma.h
+		src/opencv/ErrHandl.h)
 
 set_target_properties(image-tools
 		PROPERTIES CXX_STANDARD 17
@@ -28,7 +31,8 @@ target_include_directories(image-tools
 add_subdirectory(thirdparty/fmt)
 
 target_link_libraries(image-tools
-		${OpenCV_LIBS}
-    	fmt::fmt
+		PRIVATE ${OpenCV_LIBS}
+		PRIVATE fmt::fmt
+		PRIVATE Drogon::Drogon
 )
 
